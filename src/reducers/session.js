@@ -8,90 +8,108 @@ import {
 } from '../actions/session';
 
 const INITIAL_STATE = {
-      username: '',
-      account: '',
-      token: '',
+      user: {},
+      auth_token: '',
       error: '',
       valid: false,
       loading: false
 };
+
+// export function registerFailure(state = '', action) {
+//       switch(action.type) {
+//             case REGISTERING_FAILURE:
+//                   return {
+//                         ...state,
+//                         session: {
+//                               user: {},
+//                               token: '',
+//                               error: action.error,
+//                               valid: false,
+//                               loading: false
+//                         }
+//                   };
+//             default:
+//                   return state;
+//       }
+      
+// }
+
+// export function registerSuccess(state = INITIAL_STATE, action) {
+
+//       switch(action.type) {
+//             case REGISTERING_SUCCESS:
+//                   return {
+//                         ...state,
+//                         session: {
+//                               user: action.session.user,
+//                               auth_token: action.session.token,
+//                               error: action.error,
+//                               valid: false,
+//                               loading: false
+//                         }
+//                   };
+//             default:
+//                   return state;
+//       }
+      
+// }
 
 export default function(state = INITIAL_STATE, action) {
       
    switch(action.type) {
       case LOGGING_IN:
          return {
-            ...state,
-            session: {
-               username: action.username,
-               account: action.account,
-               token: '',
-               error: '',
-               valid: false,
-               loading: true
-            }
+            username: action.username,
+            account: action.account,
+            auth_token: '',
+            error: '',
+            valid: false,
+            loading: true
          };
       case LOGGING_IN_SUCCESS:
          return {
-            ...state, 
-            session: {
-               username: action.session.username,
-               token: action.session.token,
-               account: action.session.account,
-               error: '',
-               valid: true,
-               loading: false
-            }
+            username: action.session.username,
+            auth_token: action.session.token,
+            account: action.session.account,
+            error: '',
+            valid: true,
+            loading: false
          };
       case LOGGING_IN_FAILURE:
          return {
-            ...state,
-            session: {
-               username: '',
-               token: '',
-               account: '',
-               error: action.error,
-               valid: false,
-               loading: false
-            }
+            username: '',
+            auth_token: '',
+            account: '',
+            error: action.error,
+            valid: false,
+            loading: false
          };
       case REGISTERING:
          return {
-            ...state,
-            session: {
-               username: action.username,
-               account: action.account,
-               token: '',
+               user: {},
+               auth_token: '',
                error: '',
                valid: false,
                loading: true
-            }
          };
+
       case REGISTERING_SUCCESS:
-         return {
-            ...state, 
-            session: {
-               username: action.session.username,
-               account: action.session.account,
-               token: action.session.token,
-               error: '',
-               valid: true,
-               loading: false
-            }
-         };
+            return {
+                  test: action,
+                  user: action.session.user,
+                  auth_token: action.session.auth_token,
+                  error: action.error,
+                  valid: true,
+                  loading: false
+            };
       case REGISTERING_FAILURE:
-         return {
-            ...state,
-            session: {
-               username: '',
-               account: '',
-               token: '',
-               error: action.error,
-               valid: false,
-               loading: false
-            }
-         };
-      
+            return {
+                  user: {},
+                  token: '',
+                  error: action.error,
+                  valid: false,
+                  loading: false
+            };
       default:
          return state;
    }
