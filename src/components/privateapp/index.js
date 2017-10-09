@@ -80,11 +80,11 @@ class PrivateApp extends Component {
      }
    }
 
+   
+
    render () {
       return (
           <NavigationDrawer
-            transitionEnterTimeout={undefined}
-            transitionLeaveTimeout={undefined}
             drawerType={NavigationDrawer.DrawerTypes.PERSISTENT}
             drawerTitle='Navigate'
             toolbarTitle='Some title...'

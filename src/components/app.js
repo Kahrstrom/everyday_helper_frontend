@@ -14,6 +14,20 @@ class App extends Component {
     this.props.hideToast();
   }
   render() {
+    if(this.props.auth_token !== '') {
+      return (
+        <div>
+          <PrivateApp />
+          <Snackbar
+            className="green"
+            id="example-snackbar"
+            toasts={this.props.snackbar.toasts}
+            autohide={false}
+            onDismiss={this.hideToast}
+          />
+        </div>
+      )
+    }
     return (
       <div>
         <Switch>

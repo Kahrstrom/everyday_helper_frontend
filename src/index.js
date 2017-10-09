@@ -12,6 +12,7 @@ import './index.css';
 import WebFontLoader from 'webfontloader';
 
 import App from './components/app';
+import PrivateApp from './components/privateapp';
 
 
 WebFontLoader.load({
