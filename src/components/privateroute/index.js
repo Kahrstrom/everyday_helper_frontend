@@ -5,7 +5,6 @@ import { Route, Redirect } from 'react-router-dom';
 export const PrivateRoute = ({component: ComposedComponent, ...rest}) => {
    class Authentication extends Component {
       handleRender(props) {
-          console.log('private', this.props.session);
          if (!this.props.session.valid) {
             return <Redirect to={{
                pathname: '/public/register',

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from 'react-md/lib/Buttons/Button';
 import { Card, CardTitle, CardActions } from 'react-md/lib/Cards/';
-import { register } from '../../actions/session';
+import { logIn } from '../../actions/session';
+import { showToast } from '../../actions/ui';
 import TextField from 'react-md/lib/TextFields';
 import FontIcon from 'react-md/lib/FontIcons';
 import { Field, reduxForm } from 'redux-form';
@@ -12,28 +13,23 @@ import './index.css';
 
 function validate(values) {
    const errors = {};
-   if (!values.name){
-      errors.name = 'Please fill in your firstname';
-   }
+
    if (!values.email){
       errors.email = 'Please fill in your email';
    }
    if (!values.account_name){
         errors.account_name = 'Please fill in your firstname';
    }  
-   if (!values.username){
-      errors.username = 'Please fill in your username';
-   }
    if (!values.password){
       errors.password = 'Please fill in your password';
    }
    return errors;
 }
 
-class FormRegister extends Component {
+class FormLogin extends Component {
 
     onSubmit(props, dispatch) {
-        this.props.register(props);
+        this.props.login(props);
     }
 
     render() { 
@@ -41,23 +37,19 @@ class FormRegister extends Component {
         if(this.props.session.loading) {
             return (<div>Loading...</div>);
         }
-        const error = this.props.session.error ? <div>{this.props.session.error.toString()}</div> : <div></div>;
         const { handleSubmit, reset } = this.props;
         return (
-            <form className="register-form" onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+            <form className="login-form" onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                 <Card>
-                    <CardTitle className="register-title" title="Register" subtitle="Sign up to access all the cool stuff!" />
+                    <CardTitle className="login-title" title="Sign in" subtitle="Sign in to access all the cool stuff!" />
                     <div className="md-cell--10-desktop md-cell--1-desktop-offset">
-                        <Field leftIcon={<FontIcon>face</FontIcon>} name="name" maxLength={100} label="Name" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>email</FontIcon>} name="email" maxLength={100} label="Email" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>supervisor_account</FontIcon>} name="account_name" maxLength={100} label="Account" component={RenderTextField} className="md-cell md-cell--12" />
-                        <Field leftIcon={<FontIcon>account_circle</FontIcon>} name="username" maxLength={100} label="Username" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>vpn_key</FontIcon>}name="password" type="password" maxLength={100} label="Password" component={RenderTextField} className="md-cell md-cell--12" />
                     </div>
-                    {error}
                     <CardActions centered className="md-grid">
-                        <Button className='md-cell--12' primary raised type="submit">Register</Button>
-                        <div className='register-form-footertext md-cell--12'>Already got an account? Log in  <Link to='/public/login'>here!</Link></div>
+                        <Button className='md-cell--12' primary raised type="submit">Sign in</Button>
+                        <div className='login-form-footertext md-cell--12'>Not a member? Sign up <Link to='/public/register'>here!</Link></div>
                     </CardActions>
                 </Card>
             </form>
@@ -65,22 +57,21 @@ class FormRegister extends Component {
     }
 }
 
-FormRegister = reduxForm({
-   form: 'FormRegister',
-   fields: ['name', 'email', 'account_name', 'username', 'password'],
+FormLogin = reduxForm({
+   form: 'FormLogin',
+   fields: ['email', 'account_name', 'password'],
    validate
-})(FormRegister);
+})(FormLogin);
 
-FormRegister = connect( 
+FormLogin = connect( 
     (state) => {
-        console.log(state);
         return { session: state.session }
     }, 
     (dispatch) => {
         return {
-            register: (data) => dispatch(register(data))
+            login: (data) => dispatch(logIn(data))
         };
     }
-)(FormRegister);
+)(FormLogin);
 
-export default FormRegister;
+export default FormLogin;

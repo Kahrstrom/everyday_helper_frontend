@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ROOT_URL} from './index';
+import { showToast } from './ui';
 
 export const LOGGING_IN = 'LOGGING_IN';
 export const LOGGING_IN_SUCCESS = 'LOGGING_IN_SUCCES';
@@ -77,16 +78,17 @@ function registeringFailure(error) {
    }
 }
 
-export function logIn(username, password, account) {
+export function logIn(data) {
    return function (dispatch) {
-      dispatch(loggingIn(username, account));
-      return axios.post(`${ROOT_URL}user/login/`, { username, password, account })
+        const { username, account_name, email, name, password } = data;
+        dispatch(loggingIn(username, account_name));
+        return axios.post(`${ROOT_URL}/user/login/`, { username, email, password, account_name })
                .then (response => {
-                   
                   dispatch(loggingInSuccess(response.data));
                })
                .catch(error => {
                   dispatch(loggingInFailure(error));
+                  dispatch(showToast({ text: error.response.data.message, action: 'OK'}));
                });
    }
 }
@@ -106,11 +108,11 @@ export function register(data) {
                     }
                 )
                 .then (response => {
-                    console.log(response);
                     dispatch(registeringSuccess(response.data));
                 })
                 .catch(error => {
                     dispatch(registeringFailure(error));
+                    dispatch(showToast({ text: error.response.data.message, action: 'OK'}));
                 });
         }
         catch(error) {
@@ -119,23 +121,22 @@ export function register(data) {
     }
 }
 
-export function logout(auth_token) {
+export function logOut(auth_token) {
     return function (dispatch) {
         dispatch(loggingOut(auth_token));
         try {
-            return axios.post(`${ROOT_URL}/user/register/`, 
+            return axios.post(`${ROOT_URL}/user/logout/`, {},
                 { 
                     headers: {
-                        'Bearer':auth_token
+                        'Authorization': 'Bearer ' + auth_token
                     }
                 }
                 )
-                .then (response => {
-                    console.log(response);
-                    dispatch(registeringSuccess(response.data));
+                .then (response => { 
+                    dispatch(loggingOutSuccess(response.data));
                 })
                 .catch(error => {
-                    dispatch(registeringFailure(error));
+                    dispatch(loggingOutFailure(error));
                 });
         }
         catch(error) {

@@ -2,6 +2,9 @@ import {
       LOGGING_IN, 
       LOGGING_IN_SUCCESS, 
       LOGGING_IN_FAILURE, 
+      LOGGING_OUT,
+      LOGGING_OUT_FAILURE,
+      LOGGING_OUT_SUCCESS,
       REGISTERING, 
       REGISTERING_FAILURE, 
       REGISTERING_SUCCESS 
@@ -15,52 +18,12 @@ const INITIAL_STATE = {
       loading: false
 };
 
-// export function registerFailure(state = '', action) {
-//       switch(action.type) {
-//             case REGISTERING_FAILURE:
-//                   return {
-//                         ...state,
-//                         session: {
-//                               user: {},
-//                               token: '',
-//                               error: action.error,
-//                               valid: false,
-//                               loading: false
-//                         }
-//                   };
-//             default:
-//                   return state;
-//       }
-      
-// }
-
-// export function registerSuccess(state = INITIAL_STATE, action) {
-
-//       switch(action.type) {
-//             case REGISTERING_SUCCESS:
-//                   return {
-//                         ...state,
-//                         session: {
-//                               user: action.session.user,
-//                               auth_token: action.session.token,
-//                               error: action.error,
-//                               valid: false,
-//                               loading: false
-//                         }
-//                   };
-//             default:
-//                   return state;
-//       }
-      
-// }
-
 export default function(state = INITIAL_STATE, action) {
       
    switch(action.type) {
       case LOGGING_IN:
          return {
-            username: action.username,
-            account: action.account,
+            user: {},
             auth_token: '',
             error: '',
             valid: false,
@@ -68,18 +31,38 @@ export default function(state = INITIAL_STATE, action) {
          };
       case LOGGING_IN_SUCCESS:
          return {
-            username: action.session.username,
-            auth_token: action.session.token,
-            account: action.session.account,
+            user: action.session.user,
+            auth_token: action.session.auth_token,
             error: '',
             valid: true,
             loading: false
          };
       case LOGGING_IN_FAILURE:
          return {
-            username: '',
+            ...state,
+            error: action.error,
+            valid: false,
+            loading: false
+         };
+      case LOGGING_OUT:
+         return {
+            ...state,
+            error: '',
+            valid: false,
+            loading: true
+         };
+      case LOGGING_OUT_SUCCESS:
+         return {
+            user: {},
             auth_token: '',
-            account: '',
+            error: '',
+            valid: false,
+            loading: false
+         };
+      case LOGGING_OUT_FAILURE:
+         return {
+            user: {},
+            auth_token: '',
             error: action.error,
             valid: false,
             loading: false
@@ -95,7 +78,6 @@ export default function(state = INITIAL_STATE, action) {
 
       case REGISTERING_SUCCESS:
             return {
-                  test: action,
                   user: action.session.user,
                   auth_token: action.session.auth_token,
                   error: action.error,

@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 import { BrowserRouter } from 'react-router-dom';
 import { persistStore, autoRehydrate } from 'redux-persist';
+import { createFilter } from 'redux-persist-transform-filter';
 import './index.css';
 
 import WebFontLoader from 'webfontloader';
@@ -25,18 +26,25 @@ const store = createStore(
   autoRehydrate())
 );
 
+const sessionFilter = createFilter(
+  'session',
+  null,
+  ['auth_token', 'valid']
+);
+
+
 class AppProvider extends Component {
-  
+    
     constructor() {
       super()
       this.state = { rehydrated: false }
-    }
+    };
   
     componentWillMount(){
-      persistStore(store, {}, () => {
+      persistStore(store, {whitelist: ['session'], transforms: [sessionFilter]}, () => {
         this.setState({ rehydrated: true })
-      })
-    }
+      });
+    };
     
   
     render() {
@@ -50,8 +58,8 @@ class AppProvider extends Component {
             </BrowserRouter>
         </Provider>
       )
-    }
-}
+    };
+};
 
 ReactDOM.render(
     <AppProvider />

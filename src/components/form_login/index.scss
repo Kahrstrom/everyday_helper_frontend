@@ -1,10 +1,10 @@
 @import '../../globals';
 
-.register-form {
+.login-form {
     margin-top: 10%;
 }
 
-.register-title {
+.login-title {
     background-color: $md-primary-color;
     height: 200px;
     width: 100%;
@@ -12,13 +12,13 @@
         width: 100%;
     }
 }
-.register-title > div > * {
+.login-title > div > * {
     width: 100%;
     text-align: center;
     color: #FFF;
 } 
 
-.register-form-footertext{
+.login-form-footertext{
     margin: 8px;
     text-align: center;
 }

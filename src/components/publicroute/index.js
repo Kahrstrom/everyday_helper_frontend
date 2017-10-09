@@ -5,7 +5,6 @@ import { Route, Redirect } from 'react-router-dom';
 export const PublicRoute = ({component: ComposedComponent, ...rest}) => {
    class Authentication extends Component {
       handleRender(props) {
-            console.log(this.props);
          if (this.props.session.valid) {
             return <Redirect to={{
                pathname: '/client/',
