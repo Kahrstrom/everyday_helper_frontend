@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
-import SessionReducer from './session';
-import UIReducer from './ui';
+import session from './session';
+import ui from './ui';
+import todo from './todo';
+import user from './user';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
-   session: SessionReducer,
-   ui: UIReducer,
+   session,
+   ui,
+   todo,
+   user,
    form: formReducer
 });
 

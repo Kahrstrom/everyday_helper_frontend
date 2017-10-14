@@ -1,34 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export const PrivateRoute = ({component: ComposedComponent, ...rest}) => {
-   class Authentication extends Component {
-      handleRender(props) {
-         if (!this.props.session.valid) {
-            return <Redirect to={{
-               pathname: '/public/register',
-               state: {
-                  from: props.location,
-                  message: 'You need to log in'
-               }
-            }} />
-
-         } else {
-            return <ComposedComponent {...props} />
-         }
-      }
-      render() {
-         return (
-            <Route {...rest} render={this.handleRender.bind(this)} />
-         )
-      }
-   }
-
-   function mapStateToProps(state) {
-      return { session: state.session };
-   }
-
-   const AuthenticationContainer = connect(mapStateToProps)(Authentication)
-   return <AuthenticationContainer/>;
-}
+export const PrivateRoute = ({ component: Component, isAuthenticated, ...rest}) => (
+    <Route
+        {...rest}
+        render={props => (
+            isAuthenticated ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to={{ pathname: '/public/login', state: { from: props.location} }} />
+                )
+            )
+        }
+    />
+);

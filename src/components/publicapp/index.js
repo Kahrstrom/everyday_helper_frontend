@@ -1,8 +1,7 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import FormRegister from '../form_register';
 import FormLogin from '../form_login';
-import { PrivateRoute } from '../privateroute';
 import { PublicRoute } from '../publicroute';
 import './index.css';
 

@@ -1,8 +1,22 @@
+.md-avatar {
+  border: 0px; }
+
+.fab {
+  position: absolute;
+  right: 16px;
+  bottom: 16px; }
+
+.fab.md-background--secondary > .md-icon > i {
+  color: #FFF; }
+
+.md-picker-container {
+  margin-right: 16px; }
+
 .login-form {
   margin-top: 10%; }
 
 .login-title {
-  background-color: #00897b;
+  background-color: #880e4f;
   height: 200px;
   width: 100%; }
   .login-title > div {

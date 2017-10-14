@@ -80,7 +80,7 @@ function registeringFailure(error) {
 
 export function logIn(data) {
    return function (dispatch) {
-        const { username, account_name, email, name, password } = data;
+        const { username, account_name, email, password } = data;
         dispatch(loggingIn(username, account_name));
         return axios.post(`${ROOT_URL}/user/login/`, { username, email, password, account_name })
                .then (response => {

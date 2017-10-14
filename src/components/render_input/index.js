@@ -1,9 +1,14 @@
 import React from 'react';
-import TextField from 'react-md/lib/TextFields';
-import Checkbox from 'react-md/lib/SelectionControls/Checkbox';
-import Switch from 'react-md/lib/SelectionControls/Switch';
-import SelectField from 'react-md/lib/SelectFields';
-import SelectionControlGroup from 'react-md/lib/SelectionControls/SelectionControlGroup';
+import {
+  TextField,
+  Checkbox,
+  SelectField,
+  SelectionControlGroup,
+  DatePicker,
+  TimePicker,
+  Switch
+} from 'react-md';
+
 
 export const RenderTextField = ({ input, label, meta: { touched, error }, ...custom }) => {
   return (
@@ -17,9 +22,44 @@ export const RenderTextField = ({ input, label, meta: { touched, error }, ...cus
       onChange={input.onChange}
       />
   );
-}
+};
 
-export const renderCheckBox = ({ input, label, meta: { touched, error }, ...custom }) => (
+export const RenderDatePicker = ({ meta: { touched, error }, input, label, custom }) => {
+  const value = input.value ? new Date(input.value) : null;
+  return (
+    <DatePicker
+        id={input.name}
+        name={input.name}
+        value={value}
+        label={label}
+        error={touched && !!error}
+        errorText={error}
+        onChange={input.onChange}
+        {...custom}
+    />
+  );
+};
+ 
+export const RenderTimePicker = ({ meta: { touched, error }, input, label, custom }) => {
+  let value = Date.parse(input.value);
+  value = !!value ? new Date(value) : Date.parse("1970-01-01T" + input.value);
+  value = !!value ? new Date(value) : null;
+  return (
+    <TimePicker
+        id={input.name}
+        name={input.name}
+        value={value}
+        label={label}
+        error={touched && !!error}
+        errorText={error}
+        onChange={input.onChange}
+        {...custom}
+    />
+  );
+};
+
+export const RenderCheckBox = ({ input, label, meta: { touched, error }, ...custom }) => {
+  return (
     <Checkbox
       id={input.name}
       name={input.name}
@@ -28,38 +68,45 @@ export const renderCheckBox = ({ input, label, meta: { touched, error }, ...cust
       label={label}
       {...custom}
     />
-);
+  );
+};
 
-export const renderSelectionControl = ({ input, label, meta: { touched, error }, ...custom }) => (
-      <SelectionControlGroup
-        id={input.name}
-        name={input.name}
-        value={
-          Array.isArray(input.value) ? 
-            input.value.join(',') : 
-            input.value
-        }
-        label={label}
-        onChange={input.onChange}
-        {...custom}
-      />
-);
+export const RenderSelectionControl = ({ input, label, meta: { touched, error }, ...custom }) => {
+  return (
+    <SelectionControlGroup
+      id={input.name}
+      name={input.name}
+      value={
+        Array.isArray(input.value) ? 
+          input.value.join(',') : 
+          input.value
+      }
+      label={label}
+      onChange={input.onChange}
+      {...custom}
+    />
+  );
+};
 
-export const renderSelectField = ({ input, label, meta: { touched, error }, ...custom}) => (
-        <SelectField
-          id={input.name}
-          label={label}
-          onChange={input.onChange}
-          {...custom}
-        />
-);
+export const RenderSelectField = ({ input, label, meta: { touched, error }, ...custom}) => {
+  return ( 
+    <SelectField
+      id={input.name}
+      label={label}
+      onChange={input.onChange}
+      {...custom}
+    />
+  );
+};
 
-export const renderSwitch = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <Switch 
-    id={input.name}
-    name={input.name}
-    label={label}
-    onChange={input.onChange}
-    {...custom}
-  />
-);
+export const RenderSwitch = ({ input, label, meta: { touched, error }, ...custom }) => {
+  return (
+    <Switch 
+      id={input.name}
+      name={input.name}
+      label={label}
+      onChange={input.onChange}
+      {...custom}
+    />
+  );
+};

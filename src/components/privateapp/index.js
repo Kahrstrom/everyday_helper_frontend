@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, withRouter } from 'react-router-dom';
 
-import { hideToast } from '../../actions/ui';
 import { logOut } from '../../actions/session';
+import { fetchUsers } from '../../actions/user';
 
 import NavigationDrawer from 'react-md/lib/NavigationDrawers';
 import Divider from 'react-md/lib/Dividers';
@@ -11,7 +11,11 @@ import { ListItem } from 'react-md/lib/Lists';
 import FontIcon from 'react-md/lib/FontIcons';
 
 
-import Home from '../home';
+import PageHome from '../page_home';
+import PageTodo from '../page_todo';
+import PageBudget from '../page_budget';
+import PageShoppingList from '../page_shopping_list';
+import PageAdmin from '../page_admin';
 import AdminRoute from '../adminroute';
 import { PrivateRoute } from '../privateroute';
 import NavigationLink from '../navigation_link';
@@ -43,6 +47,13 @@ class PrivateApp extends Component {
         exact: true
     },
     {
+      type: 'link',
+      to: '/client/budget',
+      icon: 'insert_chart',
+      label: 'Budget',
+      exact: true
+  },
+    {
         type: 'divider',
         key: 'divider-1'
     },
@@ -63,12 +74,6 @@ class PrivateApp extends Component {
     }
   ];
 
-
-
-   hideToast = () => {
-      this.props.hideToast();
-   }
-
    addLink = (props) => {
       switch(props.type) {
         case 'divider':
@@ -77,15 +82,19 @@ class PrivateApp extends Component {
           return <NavigationLink {...props} key={props.to} />
         case 'button':
           return <ListItem onClick={props.click} primaryText={props.label} leftIcon={<FontIcon>{props.icon}</FontIcon>} key={props.key}/>;
+        default:
+          return <div></div>
      }
    }
 
-   
+   componentWillMount() {
+    this.props.fetchUsers(this.props.auth_token);
+   }   
 
    render () {
       return (
           <NavigationDrawer
-            drawerType={NavigationDrawer.DrawerTypes.PERSISTENT}
+            
             drawerTitle='Navigate'
             toolbarTitle='Some title...'
             navItems={
@@ -93,8 +102,11 @@ class PrivateApp extends Component {
             }
           >
             <Switch>
-              <PrivateRoute exact path='/client' component={ Home } />
-              <AdminRoute exact path='/client/admin' component={ Home } />
+              <PrivateRoute exact path='/client' component={ PageHome } isAuthenticated={this.props.auth_token !== ''} />
+              <PrivateRoute exact path='/client/todo' component={ PageTodo }  isAuthenticated={this.props.auth_token !== ''} />
+              <PrivateRoute exact path='/client/shopping-list' component={ PageShoppingList }  isAuthenticated={this.props.auth_token !== ''} />
+              <PrivateRoute exact path='/client/budget' component={ PageBudget }  isAuthenticated={this.props.auth_token !== ''} />
+              <AdminRoute exact path='/client/admin' component={ PageAdmin }  isAuthenticated={this.props.auth_token !== ''} />
             </Switch>
          </NavigationDrawer>
       );
@@ -109,7 +121,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: (auth_token) => dispatch(logOut(auth_token))
+    logout: (auth_token) => dispatch(logOut(auth_token)),
+    fetchUsers: (auth_token) => dispatch(fetchUsers(auth_token))
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PrivateApp));

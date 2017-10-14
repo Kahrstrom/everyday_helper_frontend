@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import Button from 'react-md/lib/Buttons/Button';
 import { Card, CardTitle, CardActions } from 'react-md/lib/Cards/';
 import { register } from '../../actions/session';
-import TextField from 'react-md/lib/TextFields';
 import FontIcon from 'react-md/lib/FontIcons';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { RenderTextField } from '../render_input';
+import { Loader } from '../loader';
 import './index.css';
 
 function validate(values) {
@@ -39,22 +39,20 @@ class FormRegister extends Component {
     render() { 
 
         if(this.props.session.loading) {
-            return (<div>Loading...</div>);
+            return (<Loader id="registerloader" scale={2} loaderSize="medium" />);
         }
-        const error = this.props.session.error ? <div>{this.props.session.error.toString()}</div> : <div></div>;
-        const { handleSubmit, reset } = this.props;
+        const { handleSubmit } = this.props;
         return (
             <form className="register-form" onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
-                <Card>
+                <Card className="md-grid">
                     <CardTitle className="register-title" title="Register" subtitle="Sign up to access all the cool stuff!" />
-                    <div className="md-cell--10-desktop md-cell--1-desktop-offset">
+                    <div className="md-cell md-cell--12">
                         <Field leftIcon={<FontIcon>face</FontIcon>} name="name" maxLength={100} label="Name" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>email</FontIcon>} name="email" maxLength={100} label="Email" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>supervisor_account</FontIcon>} name="account_name" maxLength={100} label="Account" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>account_circle</FontIcon>} name="username" maxLength={100} label="Username" component={RenderTextField} className="md-cell md-cell--12" />
                         <Field leftIcon={<FontIcon>vpn_key</FontIcon>}name="password" type="password" maxLength={100} label="Password" component={RenderTextField} className="md-cell md-cell--12" />
                     </div>
-                    {error}
                     <CardActions centered className="md-grid">
                         <Button className='md-cell--12' primary raised type="submit">Register</Button>
                         <div className='register-form-footertext md-cell--12'>Already got an account? Log in  <Link to='/public/login'>here!</Link></div>

@@ -8,11 +8,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { createFilter } from 'redux-persist-transform-filter';
 import './index.css';
+import { Loader } from './components/loader';
 
 import WebFontLoader from 'webfontloader';
 
 import App from './components/app';
-import PrivateApp from './components/privateapp';
 
 
 WebFontLoader.load({
@@ -30,7 +30,7 @@ const store = createStore(
 const sessionFilter = createFilter(
   'session',
   null,
-  ['auth_token', 'valid']
+  ['auth_token', 'valid', 'user']
 );
 
 
@@ -50,7 +50,7 @@ class AppProvider extends Component {
   
     render() {
       if(!this.state.rehydrated){
-        return <div>Loading...</div>
+        return (<Loader id="indexloader" scale={2} loaderSize="medium" />);
       }
       return (
         <Provider store={store}>

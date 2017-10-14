@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import Button from 'react-md/lib/Buttons/Button';
 import { Card, CardTitle, CardActions } from 'react-md/lib/Cards/';
 import { logIn } from '../../actions/session';
-import { showToast } from '../../actions/ui';
-import TextField from 'react-md/lib/TextFields';
 import FontIcon from 'react-md/lib/FontIcons';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { RenderTextField } from '../render_input';
+import { Loader } from '../loader';
 import './index.css';
 
 function validate(values) {
@@ -35,9 +34,9 @@ class FormLogin extends Component {
     render() { 
 
         if(this.props.session.loading) {
-            return (<div>Loading...</div>);
+            return (<Loader id="loginloader" scale={2} loaderSize="medium" />);
         }
-        const { handleSubmit, reset } = this.props;
+        const { handleSubmit } = this.props;
         return (
             <form className="login-form" onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                 <Card>

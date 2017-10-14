@@ -1,0 +1,24 @@
+@import '../../globals';
+
+.drawers__content__title--hack {
+  color: get-color('secondary', false);
+  left: -92px;
+  line-height: $md-line-height;
+  position: absolute;
+  top: 14px;
+}
+
+.drawers__content__scrollable {
+  height: calc(100% - #{$md-toolbar-prominent-height});
+  overflow: auto;
+  @media (min-width: 600px){
+    width: 600px;
+  }
+  @media (max-width: 599px) {
+    width: 100%;
+  }
+}
+
+.md-selection-control-container {
+  margin-left: -10px;
+}

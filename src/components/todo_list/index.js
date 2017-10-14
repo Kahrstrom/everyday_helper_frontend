@@ -1,0 +1,71 @@
+import React from 'react';
+import { List, ListItem } from 'react-md/lib/Lists';
+import { ExpansionList, ExpansionPanel } from 'react-md/lib/ExpansionPanels';
+import FontIcon from 'react-md/lib/FontIcons';
+import Avatar from 'react-md/lib/Avatars';
+import Checkbox from 'react-md/lib/SelectionControls/Checkbox';
+import moment from 'moment';
+import './index.css';
+
+
+
+const TodoList = (props) => {
+    const { todos, handleSelect } = props;
+    
+    const item = (todo, handleSelect) => {
+        const format = moment().isSame(todo.date, 'd') ? 'HH:mm' : 'YYYY-MM-DD HH:mm';
+        return <ListItem
+                primaryText={todo.title}
+                secondaryText={`Due at ${moment(todo.date).format(format)}\n${todo.description}`}
+                key={todo.id}
+                threeLines
+                onClick={() => handleSelect(todo)}
+                leftAvatar={<Avatar suffix="amber" icon={<FontIcon>alarm</FontIcon>} />} /> ;
+    }
+    
+    const list = (list, handleSelect) => {
+        if(list.length !== 0) {
+            return list.map((todo) => {
+                return item(todo, handleSelect);
+            });
+        } else {
+            return <div className="todo-list-empty-state">Nothing here</div>;
+        }
+    }
+
+    const lateTodos = todos.filter((todo) => {
+        return moment().startOf('day').diff(todo.date) > 0;
+    });
+    const todayTodos = todos.filter((todo) => {
+        return moment().isSame(todo.date, 'd');
+    });
+    const futureTodos = todos.filter((todo) => {
+        return moment().endOf('day').diff(todo.date) < 0;
+    });
+    
+    const lateList = list(lateTodos, handleSelect),
+            todayList = list(todayTodos, handleSelect),
+            futureList = list(futureTodos, handleSelect);
+    
+    return (
+        <ExpansionList>
+            <ExpansionPanel defaultExpanded label="Today's to-dos" footer={null}>
+                <List>
+                    {todayList}
+                </List>
+            </ExpansionPanel>
+            <ExpansionPanel label="Late to-dos" footer={null}>
+                <List>
+                    {lateList}
+                </List>
+            </ExpansionPanel>
+            <ExpansionPanel label="Future to-dos" footer={null}>
+                <List>
+                    {futureList}
+                </List>
+            </ExpansionPanel>
+        </ExpansionList>
+    );
+}
+
+export default TodoList;

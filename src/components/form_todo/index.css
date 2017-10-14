@@ -30,3 +30,16 @@
 .register-form-footertext {
   margin: 8px;
   text-align: center; }
+
+.btn-save {
+  margin-top: 24px; }
+
+.btn-delete {
+  margin-top: 12px; }
+
+.btn-centered > div > span {
+  text-align: center; }
+
+.btn-centered > div.md-icon-separator > span.md-icon-text {
+  margin-left: -16px;
+  padding-left: 0px; }

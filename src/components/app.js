@@ -30,6 +30,7 @@ class App extends Component {
     }
     return (
       <div>
+        {/* <PublicApp /> */}
         <Switch>
           <Route path='/public/' component={ PublicApp } />
           <PrivateRoute path='/' component={ PrivateApp } />

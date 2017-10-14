@@ -1,0 +1,35 @@
+.md-avatar {
+  border: 0px; }
+
+.fab {
+  position: absolute;
+  right: 16px;
+  bottom: 16px; }
+
+.fab.md-background--secondary > .md-icon > i {
+  color: #FFF; }
+
+.md-picker-container {
+  margin-right: 16px; }
+
+.drawers__content__title--hack {
+  color: rgba(255, 255, 255, 0.7);
+  left: -92px;
+  line-height: 1.42857;
+  position: absolute;
+  top: 14px; }
+
+.drawers__content__scrollable {
+  height: calc(100% - 128px);
+  overflow: auto; }
+
+@media (min-width: 600px) {
+  .drawers__content__scrollable {
+    width: 600px; } }
+
+@media (max-width: 599px) {
+  .drawers__content__scrollable {
+    width: 100%; } }
+
+.md-selection-control-container {
+  margin-left: -10px; }

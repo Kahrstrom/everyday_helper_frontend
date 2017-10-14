@@ -9,9 +9,15 @@ const AdminRoute = ({component: ComposedComponent, ...rest}) => {
          this.props.showToast({text, action: 'Ok'})
       }
 
-      handleRender(props) {
-         if (!this.props.session.user.admin.value) {
+      componentWillMount() {
+        if (!this.props.session.user.admin) {
             this.showToast('You do not have access to the admin pages');
+        }
+      }
+
+      handleRender(props) {
+         if (!this.props.session.user.admin) {
+            
             return <Redirect to={{
                pathname: '/client',
                state: {
