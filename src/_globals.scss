@@ -4,24 +4,7 @@
 // Variable overrides
 
 $md-primary-color: $md-pink-900;
-$md-secondary-color: $md-cyan-800;
+$md-secondary-color: $md-amber-600;
 
 $md-grid-desktop-breakpoint: 960px !default;
 
-.md-avatar {
-    border: 0px;
-}
-
-.fab {
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
-}
-
-.fab.md-background--secondary > .md-icon > i {
-    color: #FFF;
-}
-
-.md-picker-container {
-    margin-right: 16px;
-}

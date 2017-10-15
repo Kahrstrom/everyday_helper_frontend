@@ -5,3 +5,22 @@
 body {
   margin: 0;
 }
+
+.md-avatar {
+    border: 0px;
+}
+
+.fab {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1;
+}
+
+.fab.md-background--secondary > .md-icon > i {
+    color: #FFF;
+}
+
+.md-picker-container {
+    margin-right: 16px;
+}

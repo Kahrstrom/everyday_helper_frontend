@@ -11,7 +11,9 @@ import {
     EDIT_TODO,
     DELETING_TODO,
     DELETING_TODO_FAILURE,
-    DELETING_TODO_SUCCESS
+    DELETING_TODO_SUCCESS,
+    CHECK_FILTER_DONE,
+    CHECK_FILTER_MINE
 } from '../actions/todo';
 
 const INITIAL_STATE = {
@@ -19,7 +21,9 @@ const INITIAL_STATE = {
     editing: false,
     activeTodo: {},
     loading: false,
-    error: ''
+    error: '',
+    filterDone: false,
+    filterMine: false
 };
 
 const EMPTY_TODO = {
@@ -119,6 +123,16 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 editing: true
+            }
+        case CHECK_FILTER_DONE:
+            return {
+                ...state,
+                filterDone: action.checked
+            }
+        case CHECK_FILTER_MINE:
+            return {
+                ...state,
+                filterMine: action.checked
             }
         default:
             return state;

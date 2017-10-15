@@ -20,6 +20,9 @@ export const CREATING_TODO = 'CREATING_TODO';
 export const CANCEL_EDIT_TODO = 'CANCEL_EDIT_TODO';
 export const EDIT_TODO = 'EDIT_TODO';
 
+export const CHECK_FILTER_DONE = 'CHECK_FILTER_DONE';
+export const CHECK_FILTER_MINE = 'CHECK_FILTER_MINE';
+
 function savingTodo(todo) {
     return {
        type: SAVING_TODO,
@@ -103,6 +106,20 @@ export function cancelEdit() {
 export function editTodo() {
     return {
         type: EDIT_TODO
+    }
+}
+
+export function checkFilterDone(checked) {
+    return {
+        type: CHECK_FILTER_DONE,
+        checked
+    }
+}
+
+export function checkFilterMine(checked) {
+    return {
+        type: CHECK_FILTER_MINE,
+        checked
     }
 }
  

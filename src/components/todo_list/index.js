@@ -10,17 +10,19 @@ import './index.css';
 
 
 const TodoList = (props) => {
-    const { todos, handleSelect } = props;
+    const { todos, handleSelect, filterDone, filterMine, user } = props;
     
     const item = (todo, handleSelect) => {
         const format = moment().isSame(todo.date, 'd') ? 'HH:mm' : 'YYYY-MM-DD HH:mm';
+        const signature = todo.user.name.split(' ').map((name) => {return name.charAt(0).toUpperCase();});
         return <ListItem
                 primaryText={todo.title}
                 secondaryText={`Due at ${moment(todo.date).format(format)}\n${todo.description}`}
                 key={todo.id}
                 threeLines
                 onClick={() => handleSelect(todo)}
-                leftAvatar={<Avatar suffix="amber" icon={<FontIcon>alarm</FontIcon>} />} /> ;
+                rightIcon={<FontIcon>alarm</FontIcon>}
+                leftAvatar={<Avatar suffix="grey">{signature}</Avatar>} /> ;
     }
     
     const list = (list, handleSelect) => {
@@ -34,13 +36,13 @@ const TodoList = (props) => {
     }
 
     const lateTodos = todos.filter((todo) => {
-        return moment().startOf('day').diff(todo.date) > 0;
+        return moment().startOf('day').diff(todo.date) > 0 && (filterDone || !todo.done) && (!filterMine || todo.user.id === user.id);
     });
     const todayTodos = todos.filter((todo) => {
-        return moment().isSame(todo.date, 'd');
+        return moment().isSame(todo.date, 'd') && (filterDone || !todo.done) && (!filterMine || todo.user.id === user.id);
     });
     const futureTodos = todos.filter((todo) => {
-        return moment().endOf('day').diff(todo.date) < 0;
+        return moment().endOf('day').diff(todo.date) < 0 && (filterDone || !todo.done) && (!filterMine || todo.user.id === user.id);
     });
     
     const lateList = list(lateTodos, handleSelect),
