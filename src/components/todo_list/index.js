@@ -10,7 +10,17 @@ import './index.css';
 
 
 const TodoList = (props) => {
-    const { todos, handleSelect, filterDone, filterMine, user } = props;
+    const { 
+        todos, 
+        handleSelect, 
+        filterDone, 
+        filterMine, 
+        user,
+        todayExpanded,
+        futureExpanded,
+        lateExpanded,
+        toggleTodoExpander
+    } = props;
     
     const item = (todo, handleSelect) => {
         const format = moment().isSame(todo.date, 'd') ? 'HH:mm' : 'YYYY-MM-DD HH:mm';
@@ -51,17 +61,17 @@ const TodoList = (props) => {
     
     return (
         <ExpansionList>
-            <ExpansionPanel defaultExpanded label="Today's to-dos" footer={null}>
+            <ExpansionPanel defaultExpanded={todayExpanded} onExpandToggle={() => toggleTodoExpander('todayExpanded')} label="Today's to-dos" footer={null}>
                 <List>
                     {todayList}
                 </List>
             </ExpansionPanel>
-            <ExpansionPanel label="Late to-dos" footer={null}>
+            <ExpansionPanel defaultExpanded={lateExpanded} onExpandToggle={() => toggleTodoExpander('lateExpanded')} label="Late to-dos" footer={null}>
                 <List>
                     {lateList}
                 </List>
             </ExpansionPanel>
-            <ExpansionPanel label="Future to-dos" footer={null}>
+            <ExpansionPanel defaultExpanded={futureExpanded} onExpandToggle={() => toggleTodoExpander('futureExpanded')} label="Future to-dos" footer={null}>
                 <List>
                     {futureList}
                 </List>

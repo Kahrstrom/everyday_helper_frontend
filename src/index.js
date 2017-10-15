@@ -33,6 +33,12 @@ const sessionFilter = createFilter(
   ['auth_token', 'valid', 'user']
 );
 
+const todoFilter = createFilter(
+  'todo',
+  null,
+  ['activeTodo', 'editing', 'filterDone', 'filterMine']
+);
+
 
 class AppProvider extends Component {
     
@@ -42,7 +48,7 @@ class AppProvider extends Component {
     };
   
     componentWillMount(){
-      persistStore(store, {whitelist: ['session'], transforms: [sessionFilter]}, () => {
+      persistStore(store, {whitelist: ['session', 'ui', 'todo'], transforms: [sessionFilter, todoFilter]}, () => {
         this.setState({ rehydrated: true })
       });
     };

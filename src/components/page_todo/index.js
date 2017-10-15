@@ -7,8 +7,9 @@ import {
     editTodo, 
     cancelEdit,
     checkFilterDone, 
-    checkFilterMine 
+    checkFilterMine
 } from '../../actions/todo';
+import { toggleTodoExpander } from '../../actions/ui';
 import TodoList from '../todo_list';
 import { Button, FontIcon, Toolbar, SelectionControl } from 'react-md';
 import { Loader } from '../loader';
@@ -33,6 +34,10 @@ class PageTodo extends Component {
 
     onChangeMineFilter(checked, event) {
         this.props.checkFilterMine(checked);
+    }
+
+    toggleTodoExpander(expander) {
+        this.props.toggleTodoExpander(expander);
     }
 
     setTodoVisibility() {
@@ -89,9 +94,13 @@ class PageTodo extends Component {
                         <TodoList
                             filterDone={this.props.filterDone}
                             filterMine={this.props.filterMine}
+                            todayExpanded={this.props.todayExpanded}
+                            futureExpanded={this.props.futureExpanded}
+                            lateExpanded={this.props.lateExpanded}
                             user={this.props.session.user}
                             handleSelect={(todo) => this.select(todo)} 
-                            todos={this.props.todo.todos} 
+                            todos={this.props.todo.todos}
+                            toggleTodoExpander={(expander) => this.toggleTodoExpander(expander)}
                         />
                     </div>
                    
@@ -111,7 +120,8 @@ const mapDispatchToProps = (dispatch) => {
         cancelEdit: () => dispatch(cancelEdit()),
         edit: () => dispatch(editTodo()),
         checkFilterDone: (checked) => dispatch(checkFilterDone(checked)),
-        checkFilterMine: (checked) => dispatch(checkFilterMine(checked))
+        checkFilterMine: (checked) => dispatch(checkFilterMine(checked)),
+        toggleTodoExpander: (expander) => dispatch(toggleTodoExpander(expander))
     };
 };
 
@@ -121,7 +131,10 @@ const mapStateToProps = (state) => {
         todo: state.todo,
         editing: state.todo.editing,
         filterDone: state.todo.filterDone,
-        filterMine: state.todo.filterMine
+        filterMine: state.todo.filterMine,
+        futureExpanded: state.ui.todo.futureExpanded,
+        todayExpanded: state.ui.todo.todayExpanded,
+        lateExpanded: state.ui.todo.lateExpanded
     }
 }
 
