@@ -35,6 +35,8 @@ export const RenderDatePicker = ({ meta: { touched, error }, input, label, custo
         error={touched && !!error}
         errorText={error}
         onChange={input.onChange}
+        firstDayOfWeek={1}
+        displayMode="portrait" 
         {...custom}
     />
   );
@@ -53,6 +55,8 @@ export const RenderTimePicker = ({ meta: { touched, error }, input, label, custo
         error={touched && !!error}
         errorText={error}
         onChange={input.onChange}
+        displayMode="portrait" 
+        locales="se"
         {...custom}
     />
   );
