@@ -5,9 +5,8 @@
   background-color: #880e4f;
   height: 200px;
   width: 100%; }
-
-.register-title > div {
-  width: 100%; }
+  .register-title > div {
+    width: 100%; }
 
 .register-title > div > * {
   width: 100%;

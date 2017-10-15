@@ -50,8 +50,8 @@ class FormTodo extends Component {
             <form className="todo-form md-grid" onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                 <div className="md-cell md-cell--12">
                     <Field name="title" leftIcon={<FontIcon>title</FontIcon>} maxLength={100} label="Title" component={RenderTextField} className="md-cell--12" />
-                    <Field name="date" label="Date" displayMode="portrait" component={RenderDatePicker} className="md-cell--12" />
-                    <Field name="time" label="Time" displayMode="portrait" component={RenderTimePicker} className="md-cell--12" />
+                    <Field name="date" firstDayOfWeek={1} label="Date" displayMode="portrait" component={RenderDatePicker} className="md-cell--12" />
+                    <Field name="time" locales="se" label="Time" displayMode="portrait" component={RenderTimePicker} className="md-cell--12" />
                     <Field name="description" leftIcon={<FontIcon>description</FontIcon>} maxLength={400} label="Description" component={RenderTextField} rows={1} maxRows={6} className="md-cell--12" />
                     <Field name="done" defaultChecked={this.props.initialValues.done} label="Done" component={RenderCheckBox} className="md-cell--12" />
                     <Field name="user" label="Responsible" component={RenderSelectField} defaultValue={user} menuItems={this.props.users.map((user) => {return {id: user.id, name: user.name}})} className="md-cell--12" itemValue="id" itemLabel="name" />

@@ -8,14 +8,12 @@
 .drawers__content__scrollable {
   height: calc(100% - 128px);
   overflow: auto; }
-
-@media (min-width: 600px) {
-  .drawers__content__scrollable {
-    width: 600px; } }
-
-@media (max-width: 599px) {
-  .drawers__content__scrollable {
-    width: 100%; } }
+  @media (min-width: 600px) {
+    .drawers__content__scrollable {
+      width: 600px; } }
+  @media (max-width: 599px) {
+    .drawers__content__scrollable {
+      width: 100%; } }
 
 .md-selection-control-container {
   margin-left: -10px; }

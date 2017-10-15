@@ -53,7 +53,7 @@ class PageTodo extends Component {
             );
         }
         return (
-            <div>
+            <main className="page-container">
                 <Toolbar 
                     prominent
                     title="Filter"
@@ -84,7 +84,7 @@ class PageTodo extends Component {
                     }
                 />
                 <section className="md-grid">
-                    <Button className="fab" floating secondary onClick={() => this.addTodo()}><FontIcon>add</FontIcon></Button>
+                    
                     <div className="md-cell md-cell--8-desktop md-cell--2-desktop-offset">
                         <TodoList
                             filterDone={this.props.filterDone}
@@ -94,9 +94,11 @@ class PageTodo extends Component {
                             todos={this.props.todo.todos} 
                         />
                     </div>
+                   
                     <TodoDrawer visible={this.props.editing} onVisibilityChange={() => this.setTodoVisibility()} todo={this.props.todo} />
                 </section>
-            </div>
+                <Button className="fab" floating secondary onClick={() => this.addTodo()}><FontIcon>add</FontIcon></Button>
+            </main>
         );
     };
 };

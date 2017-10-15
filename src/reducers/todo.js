@@ -47,8 +47,8 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 todos: action.todos,
-                error: '',
-                activeTodo: {},
+                // error: '',
+                // activeTodo: {},
                 editing: false,
                 loading:false
             };
@@ -56,8 +56,8 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 todos: [],
-                activeTodo: {},
-                editing: false,
+                // activeTodo: {},
+                // editing: false,
                 error: action.error,
                 loading:false
             };
