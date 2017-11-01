@@ -3631,7 +3631,7 @@ body {
   border: 0px; }
 
 .fab {
-  position: absolute;
+  position: fixed;
   right: 16px;
   bottom: 16px;
   z-index: 1; }

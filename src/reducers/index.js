@@ -3,6 +3,7 @@ import session from './session';
 import ui from './ui';
 import todo from './todo';
 import user from './user';
+import shoppingList from './shopping_list';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
    ui,
    todo,
    user,
+   shoppingList,
    form: formReducer
 });
 

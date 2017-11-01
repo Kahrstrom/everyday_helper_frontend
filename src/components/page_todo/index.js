@@ -90,7 +90,7 @@ class PageTodo extends Component {
                 />
                 <section className="md-grid">
                     
-                    <div className="md-cell md-cell--8-desktop md-cell--2-desktop-offset">
+                    <div className="md-cell md-cell--8-desktop md-cell--2-desktop-offset md-cell--8-tablet md-cell--6-mobile">
                         <TodoList
                             filterDone={this.props.filterDone}
                             filterMine={this.props.filterMine}
